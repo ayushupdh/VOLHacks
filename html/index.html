@@ -1,48 +1,126 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Stock Alert</title>
-    <link href="../css/mainWindow.css" rel="stylesheet"> 
+    <link href="../css/index.css" rel="stylesheet" type="text/css">
+    <script src="http://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div class='button'>
-        <button type="button">Add</button>
+    <div class="container">
+        <div class="header">
+            <div class="user-phone">
+                <span class="header-text">6628012989</span>
+            </div>
+            <div class="search-form">
+                <input type="text" placeholder="Stock Ticker" id="stockSymbol" />
+                <button id="search_button">ADD</button>
+            </div>
+        </div>
+        <!---Header Before This Code-->
+
+        <div class="stock-list">
+            <br />
+            <b>
+                <center>Watch List
+                    <hr />
+                </center>
+            </b>
+            <br /><br />
+            <div class="card-container">
+                <div class="card">
+                    <div id="box1" class="final_card" onclick='removeCard(1);'>
+                    </div>
+                </div>
+                <div class="card">
+                    <div id="box2" class="final_card" onclick='removeCard(2);'>
+
+                    </div>
+                </div>
+                <div class="card">
+                    <div id="box3" class="final_card" onclick='removeCard(3);'>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--WatchList Before This Code-->
+        <div class="price-trigger">
+            <br />
+            <b>
+                <center>Trigger
+                    <hr />
+                </center>
+            </b>
+            <div class="trigger-container">
+                <div class="each-row">
+                    <div id="row1" class="final_trigger">
+                    </div>
+                </div>
+                <div class="each-row">
+                    <div id="row2" class="final_trigger">
+
+                    </div>
+                </div>
+                <div class="each-row">
+                    <div id="row3" class="final_trigger">
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
-    <section class="watchList">
-        <p>Watch List</p>
-        <div class="list">
-
-        </div>
-
-    </section>
-
-    <section class="minMax">
-        <div class="rows">
-            <div class="trigger"> Trigger</div>
-            <div class="min">Min</div>
-            <div class="max">Max</div>
-            <div class="save">save</div>
-            <!-- <div class="delete">del</div> -->
-        </div>
-    </section>
-
-
-
 </body>
+<script type="text/javascript" src="../js/index.js">
+</script>
 <script>
-    const electron = require("electron");
-    const { ipcRenderer } = electron;
-    console.log(ipcRenderer);
-    const h1 = document.querySelector("#phone");
-    console.log("1.1");
-    ipcRenderer.on("item:number", function (e, number) {
-        //Here number is the Users Phone Number
+    
+    // const electron = require("electron");
+    // const { ipcRenderer } = electron;
+    // const h1 = document.querySelector("#phone");
+    // ipcRenderer.on("item:number", function (e, number) {
+    //     //Here number is the Users Phone Number
+    //     console.log(number);
+    // });
+    function changeDesign(i){
+                console.log("Click Triggered");
+                console.log(i);
+                var inpField = document.getElementById(`trigger-price${i}`);
+                console.log(inpField);
+                var amount = inpField.value;
+                console.log(amount);
+                var butttonUsed=document.getElementById(`save-trigger${i}`);
+                console.log(butttonUsed);
+                var button_text=butttonUsed.innerHTML;
+                console.log(button_text);
+                if (button_text !== "Add") {
+                    console.log(button_text);
 
-    });
-    console.log("1.2");
+                    $(`#trigger-price1${i}`).prop('readonly', false);
+                    butttonUsed.innerHTML = "Add";
+                }
+                else {
+                    console.log(button_text);
+                    $(`#trigger-price${i}`).prop('readonly', true);
+                    butttonUsed.innerHTML = "Edit";
+                }
+            }
+
+            function removeCard(boxNum){
+                console.log(boxNum);
+                var box=document.getElementById(`box${boxNum}`);
+                console.log(box);
+                var rowDiv=document.getElementById(`row${boxNum}`);
+                box.innerHTML="";
+                rowDiv.innerHTML="";
+            }
 </script>
 
 </html>
